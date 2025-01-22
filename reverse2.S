@@ -1,7 +1,9 @@
 .syntax unified
+.text
 .cpu cortex-m0plus
-.thumb
+.thumb_func
 .global reverse_int2
+.type reverse_int2, %function
 
 reverse_int2:
     movs    r3, r0
