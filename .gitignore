@@ -1,0 +1,11 @@
+*.o
+
+*.elf
+*.bin
+*.hex
+
+*.map
+
+open_screen.sh
+
+.DS_Store

@@ -86,8 +86,6 @@ Discarded input sections
  .data          0x00000000        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
  .bss           0x00000000        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
  .ARM.extab     0x00000000        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
- .text          0x00000000        0x0 main.o
- .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
  .data          0x00000000        0x0 BOARD/board.o
  .bss           0x00000000        0x0 BOARD/board.o
@@ -95,6 +93,8 @@ Discarded input sections
  .bss           0x00000000        0x0 BOARD/clock_config.o
  .data          0x00000000        0x0 BOARD/pin_mux.o
  .bss           0x00000000        0x0 BOARD/pin_mux.o
+ .data          0x00000000        0x0 drivers/components_functions.o
+ .bss           0x00000000        0x0 drivers/components_functions.o
  .text          0x00000000       0x4c drivers/fsl_common.o
  .data          0x00000000        0x0 drivers/fsl_common.o
  .bss           0x00000000        0x0 drivers/fsl_common.o
@@ -436,6 +436,7 @@ LOAD main.o
 LOAD BOARD/board.o
 LOAD BOARD/clock_config.o
 LOAD BOARD/pin_mux.o
+LOAD drivers/components_functions.o
 LOAD drivers/fsl_clock.o
 LOAD drivers/fsl_common.o
 LOAD drivers/fsl_ftfx_cache.o
@@ -477,392 +478,406 @@ LOAD /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-no
  .FlashConfig   0x00000400       0x10 startup_MKL46Z4.o
                 0x00000410                        . = ALIGN (0x4)
 
-.text           0x00000410     0x4c1c
+.text           0x00000410     0x4f70
                 0x00000410                        . = ALIGN (0x4)
  *(.text)
  .text          0x00000410       0x80 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
                 0x00000410                _stack_init
                 0x0000041c                _mainCRTStartup
                 0x0000041c                _start
- .text          0x00000490       0x38 BOARD/board.o
-                0x00000490                BOARD_InitDebugConsole
- .text          0x000004c8       0xbc BOARD/clock_config.o
-                0x000004c8                BOARD_BootClockRUN
-                0x00000534                BOARD_BootClockVLPR
- .text          0x00000584       0x44 BOARD/pin_mux.o
-                0x00000584                BOARD_InitPins
- .text          0x000005c8      0xf90 drivers/fsl_clock.o
-                0x00000668                CLOCK_GetOsc0ErClkFreq
-                0x00000690                CLOCK_GetEr32kClkFreq
-                0x00000708                CLOCK_SetSimConfig
-                0x00000754                CLOCK_EnableUsbfs0Clock
-                0x000007b4                CLOCK_GetFllFreq
-                0x00000808                CLOCK_GetPllFllSelClkFreq
-                0x0000085c                CLOCK_GetOutClkFreq
-                0x000008d4                CLOCK_GetBusClkFreq
-                0x00000900                CLOCK_GetCoreSysClkFreq
-                0x00000920                CLOCK_GetPlatClkFreq
-                0x00000940                CLOCK_GetFlashClkFreq
-                0x0000096c                CLOCK_GetFreq
-                0x00000a78                CLOCK_GetInternalRefClkFreq
-                0x00000aa8                CLOCK_GetFixedFreqClkFreq
-                0x00000adc                CLOCK_GetPll0Freq
-                0x00000b14                CLOCK_SetExternalRefClkConfig
-                0x00000b18                CLOCK_SetInternalRefClkConfig
-                0x00000b98                CLOCK_CalcPllDiv
-                0x00000ca4                CLOCK_EnablePll0
-                0x00000cf4                CLOCK_SetOsc0MonitorMode
-                0x00000d30                CLOCK_SetPll0MonitorMode
-                0x00000d68                CLOCK_GetStatusFlags
-                0x00000d98                CLOCK_ClearStatusFlags
-                0x00000db8                CLOCK_InitOsc0
-                0x00000e24                CLOCK_DeinitOsc0
-                0x00000e40                CLOCK_TrimInternalRefClk
-                0x00000f10                CLOCK_GetMode
-                0x00000f64                CLOCK_SetFeiMode
-                0x00000fc8                CLOCK_SetFeeMode
-                0x00001058                CLOCK_SetFbiMode
-                0x000010c4                CLOCK_SetFbeMode
-                0x00001148                CLOCK_SetBlpiMode
-                0x0000115c                CLOCK_SetBlpeMode
-                0x00001170                CLOCK_SetPbeMode
-                0x000011e4                CLOCK_SetPeeMode
-                0x00001200                CLOCK_ExternalModeToFbeModeQuick
-                0x0000123c                CLOCK_InternalModeToFbiModeQuick
-                0x00001264                CLOCK_BootToFeiMode
-                0x0000126c                CLOCK_BootToFeeMode
-                0x0000127c                CLOCK_BootToBlpiMode
-                0x000012b0                CLOCK_BootToBlpeMode
-                0x000012e8                CLOCK_BootToPeeMode
-                0x0000132c                CLOCK_SetMcgConfig
- .text          0x00001558       0xe0 drivers/fsl_ftfx_cache.o
-                0x00001558                FTFx_CACHE_Init
-                0x00001584                FTFx_CACHE_ClearCachePrefetchSpeculation
-                0x000015a4                FTFx_CACHE_PflashSetPrefetchSpeculation
-                0x000015f4                FTFx_CACHE_PflashGetPrefetchSpeculation
-                0x00001620                mcm_flash_cache_clear
- .text          0x00001638      0xde8 drivers/fsl_lpsci.o
-                0x00001670                LPSCI_TransferHandleIRQ
-                0x000019cc                LPSCI_GetInstance
-                0x000019e0                LPSCI_TransferGetRxRingBufferLength
-                0x00001a1c                LPSCI_Init
-                0x00001b98                LPSCI_Deinit
-                0x00001bc4                LPSCI_GetDefaultConfig
-                0x00001bf4                LPSCI_SetBaudRate
-                0x00001cf0                LPSCI_EnableInterrupts
-                0x00001d14                LPSCI_DisableInterrupts
-                0x00001d34                LPSCI_GetEnabledInterrupts
-                0x00001d4c                LPSCI_GetStatusFlags
-                0x00001d58                LPSCI_ClearStatusFlags
-                0x00001db8                LPSCI_WriteBlocking
-                0x00001df4                LPSCI_ReadBlocking
-                0x00001ef0                LPSCI_TransferCreateHandle
-                0x00001f60                LPSCI_TransferStartRingBuffer
-                0x00001fd8                LPSCI_TransferStopRingBuffer
-                0x00002044                LPSCI_TransferSendNonBlocking
-                0x000020e0                LPSCI_TransferAbortSend
-                0x00002120                LPSCI_TransferGetSendCount
-                0x00002174                LPSCI_TransferReceiveNonBlocking
-                0x00002350                LPSCI_TransferAbortReceive
-                0x000023b8                LPSCI_TransferGetReceiveCount
-                0x00002408                LPSCI_TransferHandleErrorIRQ
-                0x0000240c                UART0_DriverIRQHandler
- .text          0x00002420      0x21c drivers/fsl_smc.o
-                0x00002420                SMC_PreEnterStopModes
-                0x0000244c                SMC_PostExitStopModes
-                0x00002470                SMC_PreEnterWaitModes
-                0x00002484                SMC_PostExitWaitModes
-                0x00002498                SMC_SetPowerModeRun
-                0x000024a4                SMC_SetPowerModeWait
-                0x000024c0                SMC_SetPowerModeStop
-                0x00002510                SMC_SetPowerModeVlpr
-                0x00002520                SMC_SetPowerModeVlpw
-                0x0000253c                SMC_SetPowerModeVlps
-                0x00002584                SMC_SetPowerModeLls
-                0x000025cc                SMC_SetPowerModeVlls
- .text          0x0000263c      0xd3c drivers/fsl_uart.o
-                0x00002674                UART_TransferHandleIRQ
-                0x00002994                UART_GetInstance
-                0x000029c0                UART_TransferGetRxRingBufferLength
-                0x000029fc                UART_Init
-                0x00002b4c                UART_Deinit
-                0x00002b90                UART_GetDefaultConfig
-                0x00002bc0                UART_SetBaudRate
-                0x00002c78                UART_EnableInterrupts
-                0x00002c9c                UART_DisableInterrupts
-                0x00002cbc                UART_GetEnabledInterrupts
-                0x00002cd4                UART_GetStatusFlags
-                0x00002ce0                UART_ClearStatusFlags
-                0x00002d28                UART_WriteBlocking
-                0x00002d44                UART_ReadBlocking
-                0x00002dd8                UART_TransferCreateHandle
-                0x00002e6c                UART_TransferStartRingBuffer
-                0x00002ee4                UART_TransferStopRingBuffer
-                0x00002f50                UART_TransferSendNonBlocking
-                0x00002fec                UART_TransferAbortSend
-                0x0000302c                UART_TransferGetSendCount
-                0x0000307c                UART_TransferReceiveNonBlocking
-                0x00003258                UART_TransferAbortReceive
-                0x000032c0                UART_TransferGetReceiveCount
-                0x00003314                UART_TransferHandleErrorIRQ
-                0x00003318                UART1_DriverIRQHandler
-                0x00003330                UART1_RX_TX_DriverIRQHandler
-                0x00003348                UART2_DriverIRQHandler
-                0x00003360                UART2_RX_TX_DriverIRQHandler
- .text          0x00003378      0x158 include/system_MKL46Z4.o
-                0x00003378                SystemCoreClockUpdate
-                0x000034b4                SystemInitHook
-                0x000034b8                SystemInit
- .text          0x000034d0       0x20 utilities/fsl_assert.o
-                0x000034d0                __assert_func
- .text          0x000034f0      0x164 utilities/fsl_debug_console.o
-                0x00003548                DbgConsole_Init
-                0x00003570                DbgConsole_Deinit
-                0x0000357c                DbgConsole_Flush
-                0x00003584                DbgConsole_Printf
-                0x000035bc                DbgConsole_Putchar
-                0x000035d0                DbgConsole_Scanf
-                0x00003604                DbgConsole_Getchar
-                0x00003618                _write
-                0x0000363c                _read
- .text          0x00003654      0x140 utilities/fsl_io.o
-                0x00003654                IO_Init
-                0x000036d0                IO_Deinit
-                0x00003704                IO_WaitIdle
-                0x00003740                IO_Transfer
- .text          0x00003794      0x148 utilities/fsl_log.o
-                0x00003794                LOG_Init
-                0x000037b4                LOG_Deinit
-                0x000037bc                LOG_WaitIdle
-                0x000037c8                LOG_Push
-                0x00003800                LOG_Pop
-                0x0000381c                LOG_ReadLine
-                0x000038a8                LOG_ReadCharacter
- .text          0x000038dc      0x5b4 utilities/fsl_str.o
-                0x00003900                StrFormatPrintf
-                0x00003bf8                StrFormatScanf
- .text          0x00003e90       0xd8 startup_MKL46Z4.o
-                0x00003e90                Reset_Handler
-                0x00003ed8                DMA0_DriverIRQHandler
-                0x00003ed8                SPI1_DriverIRQHandler
-                0x00003ed8                I2C1_DriverIRQHandler
-                0x00003ed8                DMA3_DriverIRQHandler
-                0x00003ed8                RTC_Seconds_IRQHandler
-                0x00003ed8                MCG_IRQHandler
-                0x00003ed8                Reserved20_IRQHandler
-                0x00003ed8                USB0_IRQHandler
-                0x00003ed8                PIT_IRQHandler
-                0x00003ed8                DMA1_DriverIRQHandler
-                0x00003ed8                DAC0_IRQHandler
-                0x00003ed8                SPI0_DriverIRQHandler
-                0x00003ed8                TPM1_IRQHandler
-                0x00003ed8                LVD_LVW_IRQHandler
-                0x00003ed8                PORTA_IRQHandler
-                0x00003ed8                FTFA_IRQHandler
-                0x00003ed8                LPTMR0_IRQHandler
-                0x00003ed8                DMA2_DriverIRQHandler
-                0x00003ed8                I2C0_DriverIRQHandler
-                0x00003ed8                CMP0_IRQHandler
-                0x00003ed8                PORTC_PORTD_IRQHandler
-                0x00003ed8                I2S0_DriverIRQHandler
-                0x00003ed8                TPM0_IRQHandler
-                0x00003ed8                LLWU_IRQHandler
-                0x00003ed8                TSI0_IRQHandler
-                0x00003ed8                ADC0_IRQHandler
-                0x00003ed8                DefaultISR
-                0x00003ed8                TPM2_IRQHandler
-                0x00003ed8                RTC_IRQHandler
-                0x00003ed8                LCD_IRQHandler
-                0x00003edc                NMI_Handler
-                0x00003ee0                HardFault_Handler
-                0x00003ee4                SVC_Handler
-                0x00003ee8                PendSV_Handler
-                0x00003eec                SysTick_Handler
-                0x00003ef0                DMA0_IRQHandler
-                0x00003ef4                DMA1_IRQHandler
-                0x00003ef8                DMA2_IRQHandler
-                0x00003efc                DMA3_IRQHandler
-                0x00003f00                I2C0_IRQHandler
-                0x00003f04                I2C1_IRQHandler
-                0x00003f08                SPI0_IRQHandler
-                0x00003f0c                SPI1_IRQHandler
-                0x00003f10                UART0_IRQHandler
-                0x00003f14                UART1_IRQHandler
-                0x00003f18                UART2_IRQHandler
-                0x00003f1c                I2S0_IRQHandler
- .text          0x00003f68      0x114 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
-                0x00003f68                __udivsi3
-                0x00003f68                __aeabi_uidiv
-                0x00004074                __aeabi_uidivmod
- .text          0x0000407c      0x1d4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
-                0x0000407c                __aeabi_idiv
-                0x0000407c                __divsi3
-                0x00004248                __aeabi_idivmod
- .text          0x00004250        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
-                0x00004250                __aeabi_ldiv0
-                0x00004250                __aeabi_idiv0
+ .text          0x00000490       0xe4 main.o
+                0x00000490                update_leds
+                0x000004b8                PORTC_PORTD_IRQHandler
+                0x00000550                init_interrupts
+ .text          0x00000574       0x38 BOARD/board.o
+                0x00000574                BOARD_InitDebugConsole
+ .text          0x000005ac       0xbc BOARD/clock_config.o
+                0x000005ac                BOARD_BootClockRUN
+                0x00000618                BOARD_BootClockVLPR
+ .text          0x00000668       0x44 BOARD/pin_mux.o
+                0x00000668                BOARD_InitPins
+ .text          0x000006ac      0x248 drivers/components_functions.o
+                0x000006ac                led_green_init
+                0x000006e4                led_green_toggle
+                0x000006f4                led_red_init
+                0x00000730                led_red_toggle
+                0x00000744                sw1_init
+                0x00000790                sw2_init
+                0x000007e0                is_pressed_sw1
+                0x000007f0                is_pressed_sw2
+                0x00000800                init_enviroment
+                0x000008d4                leds_off
+ .text          0x000008f4      0xf90 drivers/fsl_clock.o
+                0x00000994                CLOCK_GetOsc0ErClkFreq
+                0x000009bc                CLOCK_GetEr32kClkFreq
+                0x00000a34                CLOCK_SetSimConfig
+                0x00000a80                CLOCK_EnableUsbfs0Clock
+                0x00000ae0                CLOCK_GetFllFreq
+                0x00000b34                CLOCK_GetPllFllSelClkFreq
+                0x00000b88                CLOCK_GetOutClkFreq
+                0x00000c00                CLOCK_GetBusClkFreq
+                0x00000c2c                CLOCK_GetCoreSysClkFreq
+                0x00000c4c                CLOCK_GetPlatClkFreq
+                0x00000c6c                CLOCK_GetFlashClkFreq
+                0x00000c98                CLOCK_GetFreq
+                0x00000da4                CLOCK_GetInternalRefClkFreq
+                0x00000dd4                CLOCK_GetFixedFreqClkFreq
+                0x00000e08                CLOCK_GetPll0Freq
+                0x00000e40                CLOCK_SetExternalRefClkConfig
+                0x00000e44                CLOCK_SetInternalRefClkConfig
+                0x00000ec4                CLOCK_CalcPllDiv
+                0x00000fd0                CLOCK_EnablePll0
+                0x00001020                CLOCK_SetOsc0MonitorMode
+                0x0000105c                CLOCK_SetPll0MonitorMode
+                0x00001094                CLOCK_GetStatusFlags
+                0x000010c4                CLOCK_ClearStatusFlags
+                0x000010e4                CLOCK_InitOsc0
+                0x00001150                CLOCK_DeinitOsc0
+                0x0000116c                CLOCK_TrimInternalRefClk
+                0x0000123c                CLOCK_GetMode
+                0x00001290                CLOCK_SetFeiMode
+                0x000012f4                CLOCK_SetFeeMode
+                0x00001384                CLOCK_SetFbiMode
+                0x000013f0                CLOCK_SetFbeMode
+                0x00001474                CLOCK_SetBlpiMode
+                0x00001488                CLOCK_SetBlpeMode
+                0x0000149c                CLOCK_SetPbeMode
+                0x00001510                CLOCK_SetPeeMode
+                0x0000152c                CLOCK_ExternalModeToFbeModeQuick
+                0x00001568                CLOCK_InternalModeToFbiModeQuick
+                0x00001590                CLOCK_BootToFeiMode
+                0x00001598                CLOCK_BootToFeeMode
+                0x000015a8                CLOCK_BootToBlpiMode
+                0x000015dc                CLOCK_BootToBlpeMode
+                0x00001614                CLOCK_BootToPeeMode
+                0x00001658                CLOCK_SetMcgConfig
+ .text          0x00001884       0xe0 drivers/fsl_ftfx_cache.o
+                0x00001884                FTFx_CACHE_Init
+                0x000018b0                FTFx_CACHE_ClearCachePrefetchSpeculation
+                0x000018d0                FTFx_CACHE_PflashSetPrefetchSpeculation
+                0x00001920                FTFx_CACHE_PflashGetPrefetchSpeculation
+                0x0000194c                mcm_flash_cache_clear
+ .text          0x00001964      0xde8 drivers/fsl_lpsci.o
+                0x0000199c                LPSCI_TransferHandleIRQ
+                0x00001cf8                LPSCI_GetInstance
+                0x00001d0c                LPSCI_TransferGetRxRingBufferLength
+                0x00001d48                LPSCI_Init
+                0x00001ec4                LPSCI_Deinit
+                0x00001ef0                LPSCI_GetDefaultConfig
+                0x00001f20                LPSCI_SetBaudRate
+                0x0000201c                LPSCI_EnableInterrupts
+                0x00002040                LPSCI_DisableInterrupts
+                0x00002060                LPSCI_GetEnabledInterrupts
+                0x00002078                LPSCI_GetStatusFlags
+                0x00002084                LPSCI_ClearStatusFlags
+                0x000020e4                LPSCI_WriteBlocking
+                0x00002120                LPSCI_ReadBlocking
+                0x0000221c                LPSCI_TransferCreateHandle
+                0x0000228c                LPSCI_TransferStartRingBuffer
+                0x00002304                LPSCI_TransferStopRingBuffer
+                0x00002370                LPSCI_TransferSendNonBlocking
+                0x0000240c                LPSCI_TransferAbortSend
+                0x0000244c                LPSCI_TransferGetSendCount
+                0x000024a0                LPSCI_TransferReceiveNonBlocking
+                0x0000267c                LPSCI_TransferAbortReceive
+                0x000026e4                LPSCI_TransferGetReceiveCount
+                0x00002734                LPSCI_TransferHandleErrorIRQ
+                0x00002738                UART0_DriverIRQHandler
+ .text          0x0000274c      0x21c drivers/fsl_smc.o
+                0x0000274c                SMC_PreEnterStopModes
+                0x00002778                SMC_PostExitStopModes
+                0x0000279c                SMC_PreEnterWaitModes
+                0x000027b0                SMC_PostExitWaitModes
+                0x000027c4                SMC_SetPowerModeRun
+                0x000027d0                SMC_SetPowerModeWait
+                0x000027ec                SMC_SetPowerModeStop
+                0x0000283c                SMC_SetPowerModeVlpr
+                0x0000284c                SMC_SetPowerModeVlpw
+                0x00002868                SMC_SetPowerModeVlps
+                0x000028b0                SMC_SetPowerModeLls
+                0x000028f8                SMC_SetPowerModeVlls
+ .text          0x00002968      0xd3c drivers/fsl_uart.o
+                0x000029a0                UART_TransferHandleIRQ
+                0x00002cc0                UART_GetInstance
+                0x00002cec                UART_TransferGetRxRingBufferLength
+                0x00002d28                UART_Init
+                0x00002e78                UART_Deinit
+                0x00002ebc                UART_GetDefaultConfig
+                0x00002eec                UART_SetBaudRate
+                0x00002fa4                UART_EnableInterrupts
+                0x00002fc8                UART_DisableInterrupts
+                0x00002fe8                UART_GetEnabledInterrupts
+                0x00003000                UART_GetStatusFlags
+                0x0000300c                UART_ClearStatusFlags
+                0x00003054                UART_WriteBlocking
+                0x00003070                UART_ReadBlocking
+                0x00003104                UART_TransferCreateHandle
+                0x00003198                UART_TransferStartRingBuffer
+                0x00003210                UART_TransferStopRingBuffer
+                0x0000327c                UART_TransferSendNonBlocking
+                0x00003318                UART_TransferAbortSend
+                0x00003358                UART_TransferGetSendCount
+                0x000033a8                UART_TransferReceiveNonBlocking
+                0x00003584                UART_TransferAbortReceive
+                0x000035ec                UART_TransferGetReceiveCount
+                0x00003640                UART_TransferHandleErrorIRQ
+                0x00003644                UART1_DriverIRQHandler
+                0x0000365c                UART1_RX_TX_DriverIRQHandler
+                0x00003674                UART2_DriverIRQHandler
+                0x0000368c                UART2_RX_TX_DriverIRQHandler
+ .text          0x000036a4      0x158 include/system_MKL46Z4.o
+                0x000036a4                SystemCoreClockUpdate
+                0x000037e0                SystemInitHook
+                0x000037e4                SystemInit
+ .text          0x000037fc       0x20 utilities/fsl_assert.o
+                0x000037fc                __assert_func
+ .text          0x0000381c      0x164 utilities/fsl_debug_console.o
+                0x00003874                DbgConsole_Init
+                0x0000389c                DbgConsole_Deinit
+                0x000038a8                DbgConsole_Flush
+                0x000038b0                DbgConsole_Printf
+                0x000038e8                DbgConsole_Putchar
+                0x000038fc                DbgConsole_Scanf
+                0x00003930                DbgConsole_Getchar
+                0x00003944                _write
+                0x00003968                _read
+ .text          0x00003980      0x140 utilities/fsl_io.o
+                0x00003980                IO_Init
+                0x000039fc                IO_Deinit
+                0x00003a30                IO_WaitIdle
+                0x00003a6c                IO_Transfer
+ .text          0x00003ac0      0x148 utilities/fsl_log.o
+                0x00003ac0                LOG_Init
+                0x00003ae0                LOG_Deinit
+                0x00003ae8                LOG_WaitIdle
+                0x00003af4                LOG_Push
+                0x00003b2c                LOG_Pop
+                0x00003b48                LOG_ReadLine
+                0x00003bd4                LOG_ReadCharacter
+ .text          0x00003c08      0x5b4 utilities/fsl_str.o
+                0x00003c2c                StrFormatPrintf
+                0x00003f24                StrFormatScanf
+ .text          0x000041bc       0xd8 startup_MKL46Z4.o
+                0x000041bc                Reset_Handler
+                0x00004204                DMA0_DriverIRQHandler
+                0x00004204                SPI1_DriverIRQHandler
+                0x00004204                SPI0_DriverIRQHandler
+                0x00004204                DMA3_DriverIRQHandler
+                0x00004204                RTC_Seconds_IRQHandler
+                0x00004204                MCG_IRQHandler
+                0x00004204                Reserved20_IRQHandler
+                0x00004204                USB0_IRQHandler
+                0x00004204                PIT_IRQHandler
+                0x00004204                DMA1_DriverIRQHandler
+                0x00004204                I2C1_DriverIRQHandler
+                0x00004204                DAC0_IRQHandler
+                0x00004204                TPM1_IRQHandler
+                0x00004204                LVD_LVW_IRQHandler
+                0x00004204                PORTA_IRQHandler
+                0x00004204                FTFA_IRQHandler
+                0x00004204                LPTMR0_IRQHandler
+                0x00004204                DMA2_DriverIRQHandler
+                0x00004204                I2C0_DriverIRQHandler
+                0x00004204                CMP0_IRQHandler
+                0x00004204                I2S0_DriverIRQHandler
+                0x00004204                TPM0_IRQHandler
+                0x00004204                LLWU_IRQHandler
+                0x00004204                TSI0_IRQHandler
+                0x00004204                ADC0_IRQHandler
+                0x00004204                DefaultISR
+                0x00004204                TPM2_IRQHandler
+                0x00004204                RTC_IRQHandler
+                0x00004204                LCD_IRQHandler
+                0x00004208                NMI_Handler
+                0x0000420c                HardFault_Handler
+                0x00004210                SVC_Handler
+                0x00004214                PendSV_Handler
+                0x00004218                SysTick_Handler
+                0x0000421c                DMA0_IRQHandler
+                0x00004220                DMA1_IRQHandler
+                0x00004224                DMA2_IRQHandler
+                0x00004228                DMA3_IRQHandler
+                0x0000422c                I2C0_IRQHandler
+                0x00004230                I2C1_IRQHandler
+                0x00004234                SPI0_IRQHandler
+                0x00004238                SPI1_IRQHandler
+                0x0000423c                UART0_IRQHandler
+                0x00004240                UART1_IRQHandler
+                0x00004244                UART2_IRQHandler
+                0x00004248                I2S0_IRQHandler
+ .text          0x00004294      0x114 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                0x00004294                __udivsi3
+                0x00004294                __aeabi_uidiv
+                0x000043a0                __aeabi_uidivmod
+ .text          0x000043a8      0x1d4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+                0x000043a8                __aeabi_idiv
+                0x000043a8                __divsi3
+                0x00004574                __aeabi_idivmod
+ .text          0x0000457c        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x0000457c                __aeabi_ldiv0
+                0x0000457c                __aeabi_idiv0
  *(.text*)
  .text.deregister_tm_clones
-                0x00004254       0x20 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x00004580       0x20 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  .text.register_tm_clones
-                0x00004274       0x28 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x000045a0       0x28 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  .text.__do_global_dtors_aux
-                0x0000429c       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x000045c8       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  .text.frame_dummy
-                0x000042c8       0x24 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
- .text.startup  0x000042ec       0x28 main.o
-                0x000042ec                main
- .text.exit     0x00004314       0x20 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o)
-                0x00004314                exit
- .text.memset   0x00004334       0xa8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memset.o)
-                0x00004334                memset
+                0x000045f4       0x24 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+ .text.startup  0x00004618       0x50 main.o
+                0x00004618                main
+ .text.exit     0x00004668       0x20 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o)
+                0x00004668                exit
+ .text.memset   0x00004688       0xa8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memset.o)
+                0x00004688                memset
  .text.__libc_init_array
-                0x000043dc       0x48 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-init.o)
-                0x000043dc                __libc_init_array
+                0x00004730       0x48 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-init.o)
+                0x00004730                __libc_init_array
  .text.__retarget_lock_acquire_recursive
-                0x00004424        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
-                0x00004424                __retarget_lock_acquire_recursive
+                0x00004778        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
+                0x00004778                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x00004428        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
-                0x00004428                __retarget_lock_release_recursive
- .text.memcpy   0x0000442c       0x8c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memcpy-stub.o)
-                0x0000442c                memcpy
- .text.strlen   0x000044b8       0x5c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-strlen-stub.o)
-                0x000044b8                strlen
+                0x0000477c        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
+                0x0000477c                __retarget_lock_release_recursive
+ .text.memcpy   0x00004780       0x8c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memcpy-stub.o)
+                0x00004780                memcpy
+ .text.strlen   0x0000480c       0x5c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-strlen-stub.o)
+                0x0000480c                strlen
  .text.startup.register_fini
-                0x00004514       0x18 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x00004868       0x18 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x0000452c       0xe8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
-                0x0000452c                __call_exitprocs
- .text.atexit   0x00004614       0x10 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-atexit.o)
-                0x00004614                atexit
+                0x00004880       0xe8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x00004880                __call_exitprocs
+ .text.atexit   0x00004968       0x10 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-atexit.o)
+                0x00004968                atexit
  .text.__libc_fini_array
-                0x00004624       0x28 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-fini.o)
-                0x00004624                __libc_fini_array
+                0x00004978       0x28 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-fini.o)
+                0x00004978                __libc_fini_array
  .text.__register_exitproc
-                0x0000464c       0xa8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
-                0x0000464c                __register_exitproc
- .text._exit    0x000046f4        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
-                0x000046f4                _exit
+                0x000049a0       0xa8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
+                0x000049a0                __register_exitproc
+ .text._exit    0x00004a48        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+                0x00004a48                _exit
  *(.rodata)
- .rodata        0x000046f8       0x36 BOARD/clock_config.o
-                0x000046f8                oscConfig_BOARD_BootClockRUN
-                0x00004700                mcgConfig_BOARD_BootClockRUN
-                0x0000470c                simConfig_BOARD_BootClockRUN
-                0x00004714                simConfig_BOARD_BootClockVLPR
-                0x0000471c                oscConfig_BOARD_BootClockVLPR
-                0x00004724                mcgConfig_BOARD_BootClockVLPR
- *fill*         0x0000472e        0x2 
- .rodata        0x00004730      0x138 drivers/fsl_clock.o
- .rodata        0x00004868       0x1c drivers/fsl_ftfx_cache.o
- .rodata        0x00004884      0x212 drivers/fsl_lpsci.o
- *fill*         0x00004a96        0x2 
- .rodata        0x00004a98        0x2 drivers/fsl_smc.o
- *fill*         0x00004a9a        0x2 
- .rodata        0x00004a9c      0x1f1 drivers/fsl_uart.o
- *fill*         0x00004c8d        0x3 
- .rodata        0x00004c90       0x10 utilities/fsl_debug_console.o
- .rodata        0x00004ca0        0x8 utilities/fsl_io.o
- .rodata        0x00004ca8       0x2e utilities/fsl_log.o
- *fill*         0x00004cd6        0x2 
- .rodata        0x00004cd8      0x124 utilities/fsl_str.o
+ .rodata        0x00004a4c       0x36 BOARD/clock_config.o
+                0x00004a4c                oscConfig_BOARD_BootClockRUN
+                0x00004a54                mcgConfig_BOARD_BootClockRUN
+                0x00004a60                simConfig_BOARD_BootClockRUN
+                0x00004a68                simConfig_BOARD_BootClockVLPR
+                0x00004a70                oscConfig_BOARD_BootClockVLPR
+                0x00004a78                mcgConfig_BOARD_BootClockVLPR
+ *fill*         0x00004a82        0x2 
+ .rodata        0x00004a84      0x138 drivers/fsl_clock.o
+ .rodata        0x00004bbc       0x1c drivers/fsl_ftfx_cache.o
+ .rodata        0x00004bd8      0x212 drivers/fsl_lpsci.o
+ *fill*         0x00004dea        0x2 
+ .rodata        0x00004dec        0x2 drivers/fsl_smc.o
+ *fill*         0x00004dee        0x2 
+ .rodata        0x00004df0      0x1f1 drivers/fsl_uart.o
+ *fill*         0x00004fe1        0x3 
+ .rodata        0x00004fe4       0x10 utilities/fsl_debug_console.o
+ .rodata        0x00004ff4        0x8 utilities/fsl_io.o
+ .rodata        0x00004ffc       0x2e utilities/fsl_log.o
+ *fill*         0x0000502a        0x2 
+ .rodata        0x0000502c      0x124 utilities/fsl_str.o
  *(.rodata*)
  .rodata.str1.4
-                0x00004dfc      0x217 main.o
+                0x00005150      0x217 main.o
                                  0x3f (size before relaxing)
  .rodata.str1.4
-                0x00005013       0x37 drivers/fsl_clock.o
+                0x00005367       0x37 drivers/fsl_clock.o
  .rodata.str1.4
-                0x00005013       0xae drivers/fsl_lpsci.o
+                0x00005367       0xae drivers/fsl_lpsci.o
  .rodata.str1.4
-                0x00005013       0xa6 drivers/fsl_uart.o
+                0x00005367       0xa6 drivers/fsl_uart.o
  .rodata.str1.4
-                0x00005013       0x3e utilities/fsl_assert.o
+                0x00005367       0x3e utilities/fsl_assert.o
  .rodata.str1.4
-                0x00005013       0x4a utilities/fsl_debug_console.o
+                0x00005367       0x4a utilities/fsl_debug_console.o
  .rodata.str1.4
-                0x00005013       0x1f utilities/fsl_io.o
+                0x00005367       0x1f utilities/fsl_io.o
  .rodata.str1.4
-                0x00005013       0x2b utilities/fsl_log.o
+                0x00005367       0x2b utilities/fsl_log.o
  *(.glue_7)
- .glue_7        0x00005013        0x0 linker stubs
+ .glue_7        0x00005367        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00005013        0x0 linker stubs
+ .glue_7t       0x00005367        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x00005013        0x1 
- .eh_frame      0x00005014        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+ *fill*         0x00005367        0x1 
+ .eh_frame      0x00005368        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.init)
- .init          0x00005014        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crti.o
-                0x00005014                _init
- .init          0x00005018        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
+ .init          0x00005368        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crti.o
+                0x00005368                _init
+ .init          0x0000536c        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
  *(.fini)
- .fini          0x00005020        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crti.o
-                0x00005020                _fini
- .fini          0x00005024        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
-                0x0000502c                        . = ALIGN (0x4)
+ .fini          0x00005374        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crti.o
+                0x00005374                _fini
+ .fini          0x00005378        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
+                0x00005380                        . = ALIGN (0x4)
 
-.vfp11_veneer   0x0000502c        0x0
- .vfp11_veneer  0x0000502c        0x0 linker stubs
+.vfp11_veneer   0x00005380        0x0
+ .vfp11_veneer  0x00005380        0x0 linker stubs
 
-.v4_bx          0x0000502c        0x0
- .v4_bx         0x0000502c        0x0 linker stubs
+.v4_bx          0x00005380        0x0
+ .v4_bx         0x00005380        0x0 linker stubs
 
-.iplt           0x0000502c        0x0
- .iplt          0x0000502c        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x00005380        0x0
+ .iplt          0x00005380        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0000502c        0x8
-                0x0000502c                        __exidx_start = .
+.ARM            0x00005380        0x8
+                0x00005380                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0000502c        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
+ .ARM.exidx     0x00005380        0x8 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
                                  0x10 (size before relaxing)
-                0x00005034                        __exidx_end = .
+                0x00005388                        __exidx_end = .
 
-.rel.dyn        0x00005034        0x0
- .rel.iplt      0x00005034        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x00005388        0x0
+ .rel.iplt      0x00005388        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.ctors          0x00005034        0x0
-                0x00005034                        __CTOR_LIST__ = .
+.ctors          0x00005388        0x0
+                0x00005388                        __CTOR_LIST__ = .
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x00005034                        __CTOR_END__ = .
+                0x00005388                        __CTOR_END__ = .
 
-.dtors          0x00005034        0x0
-                0x00005034                        __DTOR_LIST__ = .
+.dtors          0x00005388        0x0
+                0x00005388                        __DTOR_LIST__ = .
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x00005034                        __DTOR_END__ = .
+                0x00005388                        __DTOR_END__ = .
 
-.preinit_array  0x00005034        0x0
-                0x00005034                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00005388        0x0
+                0x00005388                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x00005034                        PROVIDE (__preinit_array_end = .)
+                0x00005388                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x00005034        0x8
-                0x00005034                        PROVIDE (__init_array_start = .)
+.init_array     0x00005388        0x8
+                0x00005388                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x00005034        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x00005388        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x00005038        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x0000503c                        PROVIDE (__init_array_end = .)
+ .init_array    0x0000538c        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x00005390                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000503c        0x4
-                0x0000503c                        PROVIDE (__fini_array_start = .)
+.fini_array     0x00005390        0x4
+                0x00005390                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000503c        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x00005040                        PROVIDE (__fini_array_end = .)
-                0x00005040                        __etext = .
-                0x00005040                        __DATA_ROM = .
+ .fini_array    0x00005390        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x00005394                        PROVIDE (__fini_array_end = .)
+                0x00005394                        __etext = .
+                0x00005394                        __DATA_ROM = .
 
 .mtb            0x1fffe000        0x0
                 0x1fffe000                        . = ALIGN (0x8)
@@ -871,85 +886,86 @@ LOAD /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-no
                 0x1fffe000                        . = ALIGN (0x8)
                 0x1fffe000                        _mtb_end = .
 
-.data           0x1fffe000       0x10 load address 0x00005040
+.data           0x1fffe000       0x18 load address 0x00005394
                 0x1fffe000                        . = ALIGN (0x4)
                 0x1fffe000                        __DATA_RAM = .
                 0x1fffe000                        __data_start__ = .
  *(.data)
- .data          0x1fffe000        0x8 drivers/fsl_clock.o
- .data          0x1fffe008        0x4 include/system_MKL46Z4.o
-                0x1fffe008                SystemCoreClock
+ .data          0x1fffe000        0x8 main.o
+ .data          0x1fffe008        0x8 drivers/fsl_clock.o
+ .data          0x1fffe010        0x4 include/system_MKL46Z4.o
+                0x1fffe010                SystemCoreClock
  *(.data*)
  .data.__atexit_recursive_mutex
-                0x1fffe00c        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
-                0x1fffe00c                __atexit_recursive_mutex
+                0x1fffe014        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x1fffe014                __atexit_recursive_mutex
  *(.jcr*)
-                0x1fffe010                        . = ALIGN (0x4)
-                0x1fffe010                        __data_end__ = .
-                0x00005050                        __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
+                0x1fffe018                        . = ALIGN (0x4)
+                0x1fffe018                        __data_end__ = .
+                0x000053ac                        __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
                 0x00040000                        text_end = (ORIGIN (m_text) + LENGTH (m_text))
                 0x00000001                        ASSERT ((__DATA_END <= text_end), region m_text overflowed with text and data)
 
 .tm_clone_table
-                0x1fffe010        0x0 load address 0x00005050
+                0x1fffe018        0x0 load address 0x000053ac
  .tm_clone_table
-                0x1fffe010        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x1fffe018        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  .tm_clone_table
-                0x1fffe010        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtend.o
+                0x1fffe018        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtend.o
 
-.igot.plt       0x1fffe010        0x0 load address 0x00005050
- .igot.plt      0x1fffe010        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+.igot.plt       0x1fffe018        0x0 load address 0x000053ac
+ .igot.plt      0x1fffe018        0x0 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.bss            0x1fffe010      0x224 load address 0x00005050
-                0x1fffe010                        . = ALIGN (0x4)
-                0x1fffe010                        __START_BSS = .
-                0x1fffe010                        __bss_start__ = .
+.bss            0x1fffe018      0x224 load address 0x000053ac
+                0x1fffe018                        . = ALIGN (0x4)
+                0x1fffe018                        __START_BSS = .
+                0x1fffe018                        __bss_start__ = .
  *(.bss)
- .bss           0x1fffe010        0x8 drivers/fsl_clock.o
-                0x1fffe010                g_xtal0Freq
-                0x1fffe014                g_xtal32Freq
- .bss           0x1fffe018       0x40 drivers/fsl_ftfx_cache.o
- .bss           0x1fffe058        0x8 drivers/fsl_lpsci.o
- .bss           0x1fffe060        0x4 drivers/fsl_smc.o
- .bss           0x1fffe064       0x10 drivers/fsl_uart.o
- .bss           0x1fffe074        0x8 utilities/fsl_io.o
+ .bss           0x1fffe018        0x8 drivers/fsl_clock.o
+                0x1fffe018                g_xtal0Freq
+                0x1fffe01c                g_xtal32Freq
+ .bss           0x1fffe020       0x40 drivers/fsl_ftfx_cache.o
+ .bss           0x1fffe060        0x8 drivers/fsl_lpsci.o
+ .bss           0x1fffe068        0x4 drivers/fsl_smc.o
+ .bss           0x1fffe06c       0x10 drivers/fsl_uart.o
+ .bss           0x1fffe07c        0x8 utilities/fsl_io.o
  *(.bss*)
  .bss.completed.1
-                0x1fffe07c        0x1 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
- *fill*         0x1fffe07d        0x3 
- .bss.object.0  0x1fffe080       0x18 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x1fffe084        0x1 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
+ *fill*         0x1fffe085        0x3 
+ .bss.object.0  0x1fffe088       0x18 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtbegin.o
  .bss.__stdio_exit_handler
-                0x1fffe098        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-findfp.o)
-                0x1fffe098                __stdio_exit_handler
+                0x1fffe0a0        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-findfp.o)
+                0x1fffe0a0                __stdio_exit_handler
  .bss.__lock___atexit_recursive_mutex
-                0x1fffe09c        0x1 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
-                0x1fffe09c                __lock___atexit_recursive_mutex
- *fill*         0x1fffe09d        0x3 
- .bss.__atexit  0x1fffe0a0        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
-                0x1fffe0a0                __atexit
+                0x1fffe0a4        0x1 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
+                0x1fffe0a4                __lock___atexit_recursive_mutex
+ *fill*         0x1fffe0a5        0x3 
+ .bss.__atexit  0x1fffe0a8        0x4 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x1fffe0a8                __atexit
  .bss.__atexit0
-                0x1fffe0a4      0x190 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
-                0x1fffe0a4                __atexit0
+                0x1fffe0ac      0x190 /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
+                0x1fffe0ac                __atexit0
  *(COMMON)
-                0x1fffe234                        . = ALIGN (0x4)
-                0x1fffe234                        __bss_end__ = .
-                0x1fffe234                        __END_BSS = .
+                0x1fffe23c                        . = ALIGN (0x4)
+                0x1fffe23c                        __bss_end__ = .
+                0x1fffe23c                        __END_BSS = .
 
-.heap           0x1fffe234      0x404 load address 0x00005274
-                0x1fffe238                        . = ALIGN (0x8)
- *fill*         0x1fffe234        0x4 
-                0x1fffe238                        __end__ = .
-                0x1fffe238                        PROVIDE (end = .)
-                0x1fffe238                        __HeapBase = .
-                0x1fffe638                        . = (. + HEAP_SIZE)
- *fill*         0x1fffe238      0x400 
-                0x1fffe638                        __HeapLimit = .
-                0x1fffe638                        __heap_limit = .
+.heap           0x1fffe23c      0x404 load address 0x000055d0
+                0x1fffe240                        . = ALIGN (0x8)
+ *fill*         0x1fffe23c        0x4 
+                0x1fffe240                        __end__ = .
+                0x1fffe240                        PROVIDE (end = .)
+                0x1fffe240                        __HeapBase = .
+                0x1fffe640                        . = (. + HEAP_SIZE)
+ *fill*         0x1fffe240      0x400 
+                0x1fffe640                        __HeapLimit = .
+                0x1fffe640                        __heap_limit = .
 
-.stack          0x1fffe638      0x400 load address 0x00005678
-                0x1fffe638                        . = ALIGN (0x8)
-                0x1fffea38                        . = (. + STACK_SIZE)
- *fill*         0x1fffe638      0x400 
+.stack          0x1fffe640      0x400 load address 0x000059d4
+                0x1fffe640                        . = ALIGN (0x8)
+                0x1fffea40                        . = (. + STACK_SIZE)
+ *fill*         0x1fffe640      0x400 
                 0x20006000                        __StackTop = (ORIGIN (m_data) + LENGTH (m_data))
                 0x20005c00                        __StackLimit = (__StackTop - STACK_SIZE)
                 0x20006000                        PROVIDE (__stack = __StackTop)
@@ -972,63 +988,65 @@ LOAD /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-no
  .ARM.attributes
                 0x000000e9       0x2c BOARD/pin_mux.o
  .ARM.attributes
-                0x00000115       0x2c drivers/fsl_clock.o
+                0x00000115       0x2c drivers/components_functions.o
  .ARM.attributes
-                0x00000141       0x2c drivers/fsl_ftfx_cache.o
+                0x00000141       0x2c drivers/fsl_clock.o
  .ARM.attributes
-                0x0000016d       0x2c drivers/fsl_lpsci.o
+                0x0000016d       0x2c drivers/fsl_ftfx_cache.o
  .ARM.attributes
-                0x00000199       0x2c drivers/fsl_smc.o
+                0x00000199       0x2c drivers/fsl_lpsci.o
  .ARM.attributes
-                0x000001c5       0x2c drivers/fsl_uart.o
+                0x000001c5       0x2c drivers/fsl_smc.o
  .ARM.attributes
-                0x000001f1       0x2c include/system_MKL46Z4.o
+                0x000001f1       0x2c drivers/fsl_uart.o
  .ARM.attributes
-                0x0000021d       0x2c utilities/fsl_assert.o
+                0x0000021d       0x2c include/system_MKL46Z4.o
  .ARM.attributes
-                0x00000249       0x2c utilities/fsl_debug_console.o
+                0x00000249       0x2c utilities/fsl_assert.o
  .ARM.attributes
-                0x00000275       0x2c utilities/fsl_io.o
+                0x00000275       0x2c utilities/fsl_debug_console.o
  .ARM.attributes
-                0x000002a1       0x2c utilities/fsl_log.o
+                0x000002a1       0x2c utilities/fsl_io.o
  .ARM.attributes
-                0x000002cd       0x2c utilities/fsl_str.o
+                0x000002cd       0x2c utilities/fsl_log.o
  .ARM.attributes
-                0x000002f9       0x1b startup_MKL46Z4.o
+                0x000002f9       0x2c utilities/fsl_str.o
  .ARM.attributes
-                0x00000314       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                0x00000325       0x1b startup_MKL46Z4.o
  .ARM.attributes
-                0x00000332       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+                0x00000340       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .ARM.attributes
-                0x00000350       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x0000035e       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
  .ARM.attributes
-                0x0000036e       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o)
+                0x0000037c       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x0000039a       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-findfp.o)
+                0x0000039a       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o)
  .ARM.attributes
-                0x000003c6       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memset.o)
+                0x000003c6       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-findfp.o)
  .ARM.attributes
-                0x000003f2       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-init.o)
+                0x000003f2       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memset.o)
  .ARM.attributes
-                0x0000041e       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
+                0x0000041e       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-init.o)
  .ARM.attributes
-                0x0000044a       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memcpy-stub.o)
+                0x0000044a       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lock.o)
  .ARM.attributes
-                0x00000476       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-strlen-stub.o)
+                0x00000476       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-memcpy-stub.o)
  .ARM.attributes
-                0x000004a2       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x000004a2       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-strlen-stub.o)
  .ARM.attributes
-                0x000004ce       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-atexit.o)
+                0x000004ce       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
  .ARM.attributes
-                0x000004fa       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-fini.o)
+                0x000004fa       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-atexit.o)
  .ARM.attributes
-                0x00000526       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
+                0x00000526       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-fini.o)
  .ARM.attributes
-                0x00000552       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+                0x00000552       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__atexit.o)
  .ARM.attributes
-                0x0000057e       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtend.o
+                0x0000057e       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
  .ARM.attributes
-                0x000005aa       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
+                0x000005aa       0x2c /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtend.o
+ .ARM.attributes
+                0x000005d6       0x1e /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/crtn.o
                 0x00000001                        ASSERT ((__StackLimit >= __HeapLimit), region m_data overflowed with stack and heap)
 OUTPUT(program.elf elf32-littlearm)
 LOAD linker stubs
@@ -1051,6 +1069,7 @@ LOAD linker stubs
  .comment       0x00000045       0x46 BOARD/board.o
  .comment       0x00000045       0x46 BOARD/clock_config.o
  .comment       0x00000045       0x46 BOARD/pin_mux.o
+ .comment       0x00000045       0x46 drivers/components_functions.o
  .comment       0x00000045       0x46 drivers/fsl_clock.o
  .comment       0x00000045       0x46 drivers/fsl_ftfx_cache.o
  .comment       0x00000045       0x46 drivers/fsl_lpsci.o

@@ -37,6 +37,9 @@
 #include "board.h"
 
 #include "pin_mux.h"
+
+#include "MKL46Z4.h"
+#include "components_functions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -49,23 +52,75 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+static volatile int door1 = 1; // 1 = aberta, 0 = pechada
+static volatile int door2 = 1; // 1 = aberta, 0 = pechada
+
+void update_leds() {
+
+    if (door1 == 0 && door2 == 0) {
+        leds_off();
+        led_red_toggle();   // Encende LED vermello
+    } else {
+        leds_off();
+        led_green_toggle(); // Encende LED verde
+    }
+}
+
+void PORTC_PORTD_IRQHandler(void) {
+    // SW1
+    if (PORTC->ISFR & (1 << 3)) {
+        door1 = !door1;       // Toggle porta1
+        update_leds();
+        PORTC->ISFR |= (1 << 3);
+    }
+
+    // SW2
+    if (PORTC->ISFR & (1 << 12)) {
+        door2 = !door2;       // Toggle da porta 2
+        update_leds();
+        PORTC->ISFR |= (1 << 12);
+    }
+}
+
+// Configura interrupcións nos pines dos botóns
+void init_interrupts() {
+    // As funcións sw1_init() e sw2_init() xa configuran os pines como entrada con pull-up
+    // atópanse en (drivers/components_functions.h)
+
+    PORTC->PCR[3]  |= PORT_PCR_IRQC(0xA);
+    PORTC->PCR[12] |= PORT_PCR_IRQC(0xA);
+
+    // Habilita interrupcions
+    NVIC_EnableIRQ(PORTC_PORTD_IRQn);
+}
+
 /*!
  * @brief Main function
  */
 int main(void)
 {
-  char ch;
+    char ch;
 
-  /* Init board hardware. */
-  BOARD_InitPins();
-  BOARD_BootClockRUN();
-  BOARD_InitDebugConsole();
+    /* Init board hardware. */
+    BOARD_InitPins();
+    BOARD_BootClockRUN();
+    BOARD_InitDebugConsole();
 
-  PRINTF("Plantilla exame Sistemas Embebidos: 1a oportunidade 24/25 Q1\r\n");
+    PRINTF("Plantilla exame Sistemas Embebidos: 1a oportunidade 24/25 Q1\r\n");
 
-  while (1)
+
+    init_enviroment();
+
+    update_leds();
+
+    // Configura interrupcións
+    init_interrupts();
+
+    // Bucle principal
+    while (1)
     {
-      ch = GETCHAR();
-      PUTCHAR(ch);
+        ch = GETCHAR();  // Lemos un carácter por UART
+        PUTCHAR(ch);     // Ecoamos o carácter lido
     }
 }
