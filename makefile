@@ -20,16 +20,19 @@ AS = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 SIZE = arm-none-eabi-size
 
-CFLAGS = -I./BOARD -I./drivers -I./include -I./utilities -O2 -Wall -mthumb -mcpu=cortex-m0plus -DCPU_MKL46Z128VLH4
-LDFLAGS = -O2 -Wall -Wextra -mthumb -mcpu=cortex-m0plus --specs=nosys.specs -Wl,--gc-sections,-Map=output.map -T MKL46Z256xxx4_flash.ld
+CFLAGS = -I./BOARD -I./drivers -I./include -I./utilities -O0 -Wall -mthumb -mcpu=cortex-m0plus -DCPU_MKL46Z128VLH4
+LDFLAGS = -O0 -Wall -Wextra -mthumb -mcpu=cortex-m0plus --specs=nosys.specs -Wl,--gc-sections,-Map=output.map -T MKL46Z256xxx4_flash.ld
 
 C_SOURCES = main.c \
+            reverse1.c \
+            reverse4.c \
 			$(wildcard BOARD/*.c) \
 			$(wildcard drivers/*.c) \
 			$(wildcard include/*.c) \
 			$(wildcard utilities/*.c)
 
-ASM_SOURCES = startup_MKL46Z4.S
+ASM_SOURCES = startup_MKL46Z4.S reverse2.S
+              #reverse3.s
 
 OBJ = $(C_SOURCES:.c=.o) $(ASM_SOURCES:.S=.o)
 TARGET = program.elf

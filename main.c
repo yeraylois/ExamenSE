@@ -35,11 +35,16 @@
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 #include "board.h"
+#include "MKL46Z4.h"
 
 #include "pin_mux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+extern unsigned int reverse_int1(unsigned int x);
+extern unsigned int reverse_int2(unsigned int x);
+//extern unsigned int reverse_int3(unsigned int x);
+extern unsigned int reverse_int4(unsigned int x);
 
 
 /*******************************************************************************
@@ -49,23 +54,73 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+static void SysTick_init(void)
+{
+    // Poñemos o contador no máximo (24 bits => 0xFFFFFF)
+    SysTick->LOAD = 0x00FFFFFF;
+    // Escribimos VAL para limpar
+    SysTick->VAL = 0;
+    // CLKSOURCE=CPU clock, ENABLE=1, sen interrupción
+    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
+}
+
+static uint32_t measure_cycles_uint32(uint32_t (*func)(uint32_t), uint32_t val)
+{
+    // Ler antes
+    uint32_t start = SysTick->VAL;
+    // Chamar á función
+    uint32_t result = func(val);
+    // Ler despois
+    uint32_t end = SysTick->VAL;
+
+    uint32_t cycles = (start - end);
+
+    return cycles;
+}
+
+
 /*!
  * @brief Main function
  */
 int main(void)
 {
-  char ch;
+    char ch;
 
-  /* Init board hardware. */
-  BOARD_InitPins();
-  BOARD_BootClockRUN();
-  BOARD_InitDebugConsole();
+    /* Init board hardware. */
+    BOARD_InitPins();
+    BOARD_BootClockRUN();
+    BOARD_InitDebugConsole();
+    
+    SysTick_init();
 
-  PRINTF("Plantilla exame Sistemas Embebidos: 1a oportunidade 24/25 Q1\r\n");
+    uint32_t val = 0x5CA1AB1E;
 
-  while (1)
+    //reverse1.c
+    uint32_t c1 = measure_cycles_uint32(reverse_int1, val);
+
+    uint32_t r1 = reverse_int1(val);
+    PRINTF("Elapsed ticks with reverse_int1(): %u (%u)\r\n", c1, r1);
+    
+    //reverse4.c
+    uint32_t c4 = measure_cycles_uint32(reverse_int4, val);
+    uint32_t r4 = reverse_int4(val);
+    PRINTF("Elapsed ticks with reverse_int4(): %u (%u)\r\n", c4, r4);
+
+    //reverse2.s
+    uint32_t c2 = measure_cycles_uint32(reverse_int2, val);
+    uint32_t r2 = reverse_int2(val);
+    PRINTF("Elapsed ticks with reverse_int2(): %u (%u)\r\n", c2, r2);
+
+   /* //reverse3.s
+    uint32_t c3 = measure_cycles_uint32(reverse_int3, val);
+    uint32_t r3 = reverse_int3(val);
+    PRINTF("Elapsed ticks with reverse_int3(): %u (%u)\r\n", c3, r3);
+*/
+
+    while (1)
     {
-      ch = GETCHAR();
-      PUTCHAR(ch);
+        __NOP();
     }
+
 }
